@@ -1,2 +1,40 @@
-<h1 *ngIf="isLoading">Loading...</h1>
-<button class="btn btn-primary">test</button>
+<div class="container">
+  <h1 *ngIf="isLoading">Loading...</h1>
+  <label for="">Name:</label>
+  <input [(ngModel)]="customerToSave.name" type="text" class="form-control" />
+  <label for="">Age:</label>
+  <input [(ngModel)]="customerToSave.age" type="number" class="form-control" />
+  <label for="">MembershipId:</label>
+  <input
+    [(ngModel)]="customerToSave.membershipTypeId"
+    type="number"
+    class="form-control"
+  />
+  <button class="btn btn-primary" (click)="saveUser()">Save</button>
+
+  <table *ngIf="!isLoading" class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Memebrship</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of customers">
+        <th scope="row">1</th>
+        <td>{{ c.name }}</td>
+        <td>{{ c.membershipType.name }}</td>
+        <td>
+          <button class="btn btn-danger" (click)="deleteUser(c.id)">
+            Delete
+          </button>
+          <button class="btn btn-primary mx-2" (click)="updateUser(c.id)">
+            Update
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

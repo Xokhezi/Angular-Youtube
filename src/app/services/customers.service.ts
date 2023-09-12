@@ -3,15 +3,23 @@ import { HttpClient } from '@angular/common/http';
 export interface Customer {
   id: number;
   name: string;
-  email: string;
-  phone: string;
-  address: string;
+  age: number;
+  membershipType: MembershipType;
+}
+export interface SaveCustomer {
+  name: string;
+  age: number;
+  membershipTypeId: number;
+}
+interface MembershipType {
+  id: number;
+  name: string;
 }
 @Injectable({
   providedIn: 'root',
 })
 export class CustomersService {
-  url = 'http://localhost:5112/api/customers';
+  url = 'http://localhost:5112/api/customers/';
 
   constructor(private http: HttpClient) {}
   getAll() {
@@ -20,10 +28,10 @@ export class CustomersService {
   getSingle(id: any) {
     return this.http.get(this.url + id);
   }
-  update(id: number, customer: any) {
+  update(id: number, customer: SaveCustomer) {
     return this.http.put(this.url + id, customer);
   }
-  create(customer: any) {
+  create(customer: SaveCustomer) {
     return this.http.post(this.url, customer);
   }
   delete(id: number) {
